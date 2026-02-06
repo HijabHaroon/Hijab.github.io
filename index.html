@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name: projects, experience, and writing." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#0f1730;
+      --muted:#95a3c6;
+      --text:#e9efff;
+      --accent:#7c5cff;
+      --accent2:#2dd4bf;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(45,212,191,.20), transparent 55%),
+        radial-gradient(800px 600px at 50% 90%, rgba(124,92,255,.15), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height:1.55;
+    }
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .wrap{ max-width: 1024px; margin: 0 auto; padding: 28px 18px 64px; }
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      position: sticky; top:0; padding: 14px 0; backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(11,16,32,.85), rgba(11,16,32,.35));
+      z-index: 50;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .avatar{
+      width:38px; height:38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--shadow);
+      display:grid; place-items:center; font-weight:700;
+    }
+    .nav{ display:flex; gap: 14px; flex-wrap: wrap; justify-content:flex-end; }
+    .pill{
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      transition: transform .12s ease, border-color .12s ease;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); text-decoration:none; }
+    header.hero{
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      background: rgba(15,23,48,.55);
+      box-shadow: var(--shadow);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 860px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+    h1{ margin: 0 0 8px; font-size: 34px; letter-spacing: -.02em; }
+    .headline{ color: var(--muted); margin: 0 0 18px; font-size: 16px; }
+    .cta{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.28); text-decoration:none; }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(45,212,191,.65));
+      border-color: transparent;
+      color: #0b1020;
+    }
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(15,23,48,.55);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    @media (max-width: 560px){ .kpi{ grid-template-columns: 1fr; } }
+    .kpi .box{
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .kpi .num{ font-size: 18px; font-weight: 800; }
+    .kpi .lbl{ color: var(--muted); font-size: 13px; }
+
+    section{ margin-top: 18px; }
+    .section-title{
+      display:flex; align-items:baseline; justify-content:space-between;
+      margin: 0 0 10px;
+      gap: 12px;
+    }
+    .section-title h2{ margin:0; font-size: 18px; letter-spacing: -.01em; }
+    .section-title .hint{ color: var(--muted); font-size: 13px; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 860px){ .grid{ grid-template-columns: 1fr; } }
+    .item-title{ margin: 0 0 6px; font-weight: 800; }
+    .meta{ color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; }
+    .tag{
+      font-size: 12px;
+      color: rgba(233,239,255,.9);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,.03);
+    }
+    .list{ display:grid; gap: 10px; }
+    .row{
+      display:flex; flex-direction:column; gap:6px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .row-top{ display:flex; align-items:baseline; justify-content:space-between; gap: 10px; }
+    .row-top strong{ font-size: 15px; }
+    .row-top span{ color: var(--muted); font-size: 13px; }
+    footer{
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align:center;
+      padding-top: 18px;
+    }
+    .small{ color: var(--muted); font-size: 13px; margin: 0; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">YN</div>
+        <div>
+          <div style="font-weight:800; line-height:1.1;">Your Name</div>
+          <div class="small">Product / Strategy / MBA</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="pill" href="#projects">Projects</a>
+        <a class="pill" href="#experience">Experience</a>
+        <a class="pill" href="#writing">Writing</a>
+        <a class="pill" href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Your Name</h1>
+          <p class="headline">
+            I build products and strategies that move key metrics—focused on customer value, crisp execution, and measurable outcomes.
+          </p>
+
+          <p class="small">
+            Currently: <strong>MBA Candidate</strong> • Interests: Product Strategy, Analytics, GTM • Location: <span class="mono">Seattle / Remote</span>
+          </p>
+
+          <div class="cta">
+            <a class="btn primary" href="#" onclick="alert('Replace this with your resume link (PDF)'); return false;">Download Resume</a>
+            <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="#contact">Email</a>
+          </div>
+
+          <div class="kpi" role="list" aria-label="Highlights">
+            <div class="box" role="listitem">
+              <div class="num">+12%</div>
+              <div class="lbl">Example metric impact</div>
+            </div>
+            <div class="box" role="listitem">
+              <div class="num">3</div>
+              <div class="lbl">Products shipped</div>
+            </div>
+            <div class="box" role="listitem">
+              <div class="num">5+</div>
+              <div class="lbl">Cross-functional partners</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h2>About</h2>
+            <div class="hint">Short + specific beats long</div>
+          </div>
+          <p style="margin:0 0 10px;">
+            I’m a product-focused builder with strengths in customer discovery, crisp PRDs, experiment design, and metric-driven iteration.
+            I’ve worked on <strong>growth</strong>, <strong>platform</strong>, and <strong>analytics</strong>-adjacent projects.
+          </p>
+          <p style="margin:0;">
+            Looking for roles in <strong>Product Management</strong> / <strong>Product Strategy</strong>. I care about clarity, speed, and outcomes.
+          </p>
+          <div class="tags" aria-label="Skills">
+            <span class="tag">Product Strategy</span>
+            <span class="tag">Roadmapping</span>
+            <span class="tag">A/B Testing</span>
+            <span class="tag">SQL</span>
+            <span class="tag">User Research</span>
+            <span class="tag">Stakeholder Mgmt</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="projects">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <div class="hint">Add 3–6 with outcomes</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <p class="item-title">Project One — Growth Experiment System</p>
+          <p class="meta">Role: PM • Tools: SQL, Amplitude, Jira • 2025</p>
+          <p style="margin:0;">
+            Built an experimentation workflow to reduce cycle time and improve decision quality. Shipped dashboards + a weekly growth review cadence.
+          </p>
+          <div class="tags">
+            <span class="tag">Experimentation</span>
+            <span class="tag">Metrics</span>
+            <span class="tag">Process</span>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with case study link'); return false;">Case study</a> ·
+            <a href="#" onclick="alert('Replace with repo link'); return false;">Repository</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="item-title">Project Two — Customer Insights Dashboard</p>
+          <p class="meta">Role: Analyst/PM • Tools: Tableau/Looker • 2024</p>
+          <p style="margin:0;">
+            Consolidated fragmented reporting into one source of truth. Improved stakeholder visibility into activation and retention drivers.
+          </p>
+          <div class="tags">
+            <span class="tag">Analytics</span>
+            <span class="tag">Activation</span>
+            <span class="tag">Retention</span>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with case study link'); return false;">Case study</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="item-title">Project Three — Product Requirements + MVP</p>
+          <p class="meta">Role: PM • 2024</p>
+          <p style="margin:0;">
+            Defined MVP scope and success metrics, ran user interviews, and delivered an MVP with clear instrumentation and launch plan.
+          </p>
+          <div class="tags">
+            <span class="tag">Discovery</span>
+            <span class="tag">PRD</span>
+            <span class="tag">GTM</span>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with link'); return false;">Read more</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="item-title">Project Four — (Optional) Personal Build</p>
+          <p class="meta">Role: Builder • Tools: Supabase, Next.js • 2025</p>
+          <p style="margin:0;">
+            Built a small app to practice product analytics and measurement. Includes events, funnels, and cohort retention views.
+          </p>
+          <div class="tags">
+            <span class="tag">Full-stack</span>
+            <span class="tag">Instrumentation</span>
+            <span class="tag">Cohorts</span>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with demo link'); return false;">Live demo</a> ·
+            <a href="#" onclick="alert('Replace with repo link'); return false;">GitHub</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-title">
+        <h2>Experience</h2>
+        <div class="hint">Company • Role • impact bullets</div>
+      </div>
+
+      <div class="card">
+        <div class="list">
+          <div class="row">
+            <div class="row-top">
+              <strong>Company Name — Role Title</strong>
+              <span>2024 – 2025</span>
+            </div>
+            <div class="small">Team / Domain • Location</div>
+            <ul style="margin: 6px 0 0; padding-left: 18px;">
+              <li>Owned a roadmap slice and shipped <strong>X</strong> features tied to <strong>Y</strong> metric.</li>
+              <li>Partnered with Eng/Design/Data to deliver <strong>Z</strong> outcomes under timeline constraints.</li>
+              <li>Defined success metrics, instrumentation plan, and launch comms for cross-functional alignment.</li>
+            </ul>
+          </div>
+
+          <div class="row">
+            <div class="row-top">
+              <strong>Company Name — Role Title</strong>
+              <span>2022 – 2024</span>
+            </div>
+            <div class="small">Team / Domain • Location</div>
+            <ul style="margin: 6px 0 0; padding-left: 18px;">
+              <li>Improved process and reporting to reduce confusion and speed up decisions.</li>
+              <li>Conducted customer/partner interviews and translated insights into requirements.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="section-title">
+        <h2>Writing</h2>
+        <div class="hint">Add 2–6 posts (even short ones)</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <p class="item-title">Post Title One</p>
+          <p class="meta">Jan 2026 • Product Strategy</p>
+          <p style="margin:0;">
+            A short write-up on how I think about measuring success for new product bets, and avoiding vanity metrics.
+          </p>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with post link'); return false;">Read</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="item-title">Post Title Two</p>
+          <p class="meta">Dec 2025 • Analytics</p>
+          <p style="margin:0;">
+            A practical framework for turning ambiguous problems into measurable experiments and learning loops.
+          </p>
+          <p class="small" style="margin-top:12px;">
+            <a href="#" onclick="alert('Replace with post link'); return false;">Read</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <div class="hint">Make it easy to reach you</div>
+      </div>
+
+      <div class="card">
+        <p style="margin:0 0 10px;">
+          Email me at <a class="mono" href="mailto:you@example.com">you@example.com</a>
+          or message me on <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>.
+        </p>
+        <p class="small" style="margin:0;">
+          Tip: upload your resume PDF to this repo (e.g., <span class="mono">/resume.pdf</span>) and set the “Download Resume” button link to it.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Your Name · Built on GitHub Pages · <span class="mono">yourusername.github.io</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
